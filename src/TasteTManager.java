@@ -9,15 +9,19 @@ public class TasteTManager
     {
         Taste.setupTasteT();
         tasteDataBase = Taste.getTasteData();
+        System.out.print("Database set up...");
     }
 
     public Ingredient findIngredient(String ing)
     {
         Ingredient tempIng = null;
+        System.out.print("Finding ingredient " + ing);
+        ing = FormatQuery(ing);
 
         if (tasteDataBase.containsKey(ing))
         {
             tempIng = tasteDataBase.get(ing);
+            System.out.print("Ingredient searched:" + tempIng);
             return tempIng;
             //outputIngredient(tempIng);
         }
@@ -37,6 +41,13 @@ public class TasteTManager
       }*/
 
         //return tempIng;
+    }
+
+    private String FormatQuery(String q)
+    {
+        q = q.toLowerCase();
+        q = Character.toUpperCase(q.charAt(0)) + q.substring(1);
+        return q;
     }
 
 }
