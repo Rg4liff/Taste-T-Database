@@ -9,7 +9,7 @@ public class Main
     {
 
         MainFrame mainFrame = new MainFrame();
-        mainFrame.setSize(600, 430);
+        mainFrame.setSize(1800, 430);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

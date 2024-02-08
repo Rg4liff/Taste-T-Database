@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,25 +9,22 @@ public class MainFrame extends JFrame implements ActionListener
     JPanel pMain = new JPanel();
     JPanel pTextnButt = new JPanel();
     JPanel pResults = new JPanel();
-    JTextField tQuery = new JTextField("Enter ingredient here...");
+
+    JTextField tQuery = new JTextField( 30 );
     JButton bSearch = new JButton("Search");
 
-    JLabel lSpice = new JLabel("Spices:");
-    JLabel lFruit = new JLabel("Fruits:");
+    //9 labels for each flavor type
+    JTextArea tSpice = new JTextArea("Spices:");
+    JTextArea tFruit = new JTextArea("Fruits:");
+    JTextArea tVeg = new JTextArea("Vegetables:");
+    JTextArea tLiquid = new JTextArea("Liquids:");
+    JTextArea tDairy = new JTextArea("Dairy:");
+    JTextArea tDry = new JTextArea("Dry Storage:");
+    JTextArea tHerb = new JTextArea("Herbs:");
+    JTextArea tProtein = new JTextArea("Proteins:");
+    JTextArea tMisc = new JTextArea("Miscellaneous:");
 
-    JLabel lVeg = new JLabel("Vegetables:");
-
-    JLabel lLiquid = new JLabel("Liquids:");
-
-    JLabel lDairy = new JLabel("Dairy:");
-
-    JLabel lDry = new JLabel("Dry Storage:");
-
-    JLabel lHerb = new JLabel("Herbs:");
-
-    JLabel lProtein = new JLabel("Proteins:");
-
-    JLabel lMisc = new JLabel("Miscellaneous:");
+    JPanel pSpice = new JPanel();
 
     TasteTManager tManager = new TasteTManager();
 
@@ -34,28 +32,39 @@ public class MainFrame extends JFrame implements ActionListener
     public MainFrame()
     {
         super();
-
-        BorderLayout bL = new BorderLayout();
-        pMain.setLayout(bL);
-
         this.setContentPane(pMain);
-        pMain.add(pTextnButt);
-        pMain.add(pResults);
+        //pMain.setSize(1800, 430);
+
+        pMain.setLayout(new BorderLayout());
+        pMain.add(pTextnButt, BorderLayout.NORTH);
+        pMain.add(pResults, BorderLayout.CENTER);
+
         pTextnButt.setBackground(new Color(52, 46, 117));
-        pResults.setBackground(new Color(132, 129, 163));
+        pTextnButt.add(tQuery);
+        pTextnButt.add(bSearch);
 
-        pTextnButt.add(tQuery, BorderLayout.NORTH);
-        pTextnButt.add(bSearch, BorderLayout.CENTER);
+        pResults.setLayout(new GridLayout(1, 9));
+        pSpice.setBackground(new Color(132, 129, 163));
+        pResults.add(pSpice);
 
-        pResults.add(lSpice);
-        pResults.add(lHerb);
-        pResults.add(lFruit);
-        pResults.add(lVeg);
-        pResults.add(lProtein);
-        pResults.add(lDairy);
-        pResults.add(lDry);
-        pResults.add(lLiquid);
-        pResults.add(lMisc);
+        bSearch.addActionListener(this);
+        tQuery.addActionListener(this);
+        tQuery.setEditable(true);
+
+        tSpice.setMaximumSize(new Dimension(200,Integer.MAX_VALUE));
+        tSpice.setLineWrap(true);
+        tSpice.setOpaque(false);
+        pSpice.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+
+        pSpice.add(tSpice);
+        pResults.add(tHerb);
+        pResults.add(tFruit);
+        pResults.add(tVeg);
+        pResults.add(tProtein);
+        pResults.add(tDairy);
+        pResults.add(tDry);
+        pResults.add(tLiquid);
+        pResults.add(tMisc);
 
         //sets up database
 
@@ -68,11 +77,30 @@ public class MainFrame extends JFrame implements ActionListener
         String qIng = "";
         Ingredient foundIng = new Ingredient();
 
-        if(e.getSource() == bSearch)
+        if(e.getSource() == bSearch || e.getSource() == tQuery)
         {
+            System.out.print("Poop");
             qIng = tQuery.getText();
-            foundIng = tManager.findIngredient(qIng);
-            outputIngredient(foundIng);
+            if (qIng == null || qIng.isEmpty())
+            {
+                //new window should pop up stating text field is empty
+                JOptionPane.showMessageDialog(null,"Error:Text Field is empty");
+
+            }
+            else
+            {
+                foundIng = tManager.findIngredient(qIng);
+            }
+            if(foundIng == null)
+            {
+                //new window should pop up alerting not found in database
+                JOptionPane.showMessageDialog(null,"Item not in database");
+            }
+            else
+            {
+                System.out.print(foundIng.getName());
+                outputIngredient(foundIng);
+            }
         }
     }
 
@@ -82,66 +110,66 @@ public class MainFrame extends JFrame implements ActionListener
 
         for (String spice : tI.getSpice())
         {
-           holder.append(spice).append(", ");
+           holder.append(spice).append("\n");
 
         }
-        lSpice.setText("Spice: \n" + holder.toString());
+        tSpice.setText("Spice: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String fruit : tI.getFruit())
         {
-            holder.append(fruit).append(", ");
+            holder.append(fruit).append("\n");
         }
-        lFruit.setText("Fruits: \n" + holder.toString());
+        tFruit.setText("Fruits: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String veg : tI.getVeg())
         {
-            holder.append(veg).append(", ");
+            holder.append(veg).append("\n");
         }
-        lVeg.setText("Vegetables: \n" + holder.toString());
+        tVeg.setText("Vegetables: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String liquid : tI.getLiquid())
         {
-            holder.append(liquid).append(", ");
+            holder.append(liquid).append("\n");
         }
-        lLiquid.setText("Liquids: \n" + holder.toString());
+        tLiquid.setText("Liquids: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String dairy : tI.getDairy())
         {
-            holder.append(dairy).append(", ");
+            holder.append(dairy).append("\n");
         }
-        lDairy.setText("Dairy: \n" + holder.toString());
+        tDairy.setText("Dairy: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String dry : tI.getDry())
         {
-            holder.append(dry).append(", ");
+            holder.append(dry).append("\n");
         }
-        lDry.setText("Dry Storage: \n" + holder.toString());
+        tDry.setText("Dry Storage: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String herb : tI.getHerb())
         {
-            holder.append(herb).append(", ");
+            holder.append(herb).append("\n");
         }
-        lHerb.setText("Herbs: \n" + holder.toString());
+        tHerb.setText("Herbs: \n" + holder.toString());
         holder = new StringBuilder();
 
         for (String meat : tI.getProtein())
         {
-            holder.append(meat).append(", ");
+            holder.append(meat).append("\n");
         }
-        lProtein.setText("Proteins: \n" + holder.toString());
+        tProtein.setText("Proteins:\n" + holder.toString());
         holder = new StringBuilder();
 
         for (String misc : tI.getMisc())
         {
-            holder.append(misc).append(", ");
+            holder.append(misc).append("\n");
         }
-        lMisc.setText("Miscellaneous: \n" + holder.toString());
+        tMisc.setText("Miscellaneous:\n" + holder.toString());
 
     }
 }
