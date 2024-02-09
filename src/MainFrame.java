@@ -25,6 +25,14 @@ public class MainFrame extends JFrame implements ActionListener
     JTextArea tMisc = new JTextArea("Miscellaneous:");
 
     JPanel pSpice = new JPanel();
+    JPanel pFruit = new JPanel();
+    JPanel pVeg = new JPanel();
+    JPanel pLiquid = new JPanel();
+    JPanel pDairy = new JPanel();
+    JPanel pDry = new JPanel();
+    JPanel pHerb = new JPanel();
+    JPanel pProtein = new JPanel();
+    JPanel pMisc = new JPanel();
 
     TasteTManager tManager = new TasteTManager();
 
@@ -44,27 +52,84 @@ public class MainFrame extends JFrame implements ActionListener
         pTextnButt.add(bSearch);
 
         pResults.setLayout(new GridLayout(1, 9));
-        pSpice.setBackground(new Color(132, 129, 163));
+        pSpice.setBackground(new Color(166, 147, 101));
+        pFruit.setBackground(new Color(166, 134, 101));
+        pVeg.setBackground(new Color(112, 166, 101));
+        pLiquid.setBackground(new Color(101, 148, 166));
+        pDairy.setBackground(new Color(163, 189, 199));
+        pDry.setBackground(new Color(188, 199, 163));
+        pHerb.setBackground(new Color(163, 199, 181));
+        pProtein.setBackground(new Color(199, 163, 165));
+        pMisc.setBackground(new Color(132, 129, 163));
         pResults.add(pSpice);
+        pResults.add(pHerb);
+        pResults.add(pFruit);
+        pResults.add(pVeg);
+        pResults.add(pProtein);
+        pResults.add(pDairy);
+        pResults.add(pDry);
+        pResults.add(pLiquid);
+        pResults.add(pMisc);
 
         bSearch.addActionListener(this);
         tQuery.addActionListener(this);
         tQuery.setEditable(true);
 
-        tSpice.setMaximumSize(new Dimension(200,Integer.MAX_VALUE));
+        //tSpice.setMaximumSize(new Dimension(200,Integer.MAX_VALUE));
         tSpice.setLineWrap(true);
         tSpice.setOpaque(false);
+
+        tHerb.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tHerb.setLineWrap(true);
+        tHerb.setOpaque(false);
+
+        tFruit.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tFruit.setLineWrap(true);
+        tFruit.setOpaque(false);
+
+        tVeg.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tVeg.setLineWrap(true);
+        tVeg.setOpaque(false);
+
+        tProtein.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tProtein.setLineWrap(true);
+        tProtein.setOpaque(false);
+
+        tDairy.setMaximumSize(new Dimension(200,Integer.MAX_VALUE));
+        tDairy.setLineWrap(true);
+        tDairy.setOpaque(false);
+
+        tDry.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tDry.setLineWrap(true);
+        tDry.setOpaque(false);
+
+        tLiquid.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tLiquid.setLineWrap(true);
+        tLiquid.setOpaque(false);
+
+        tMisc.setMaximumSize(new Dimension(165,Integer.MAX_VALUE));
+        tMisc.setLineWrap(true);
+        tMisc.setOpaque(false);
+
         pSpice.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pHerb.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pFruit.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pVeg.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pProtein.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pDairy.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pDry.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pLiquid.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
+        pMisc.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(141, 124, 163), new Color(71, 50, 97)));
 
         pSpice.add(tSpice);
-        pResults.add(tHerb);
-        pResults.add(tFruit);
-        pResults.add(tVeg);
-        pResults.add(tProtein);
-        pResults.add(tDairy);
-        pResults.add(tDry);
-        pResults.add(tLiquid);
-        pResults.add(tMisc);
+        pHerb.add(tHerb);
+        pFruit.add(tFruit);
+        pVeg.add(tVeg);
+        pProtein.add(tProtein);
+        pDairy.add(tDairy);
+        pDry.add(tDry);
+        pLiquid.add(tLiquid);
+        pMisc.add(tMisc);
 
         //sets up database
 

@@ -9,7 +9,8 @@ public class Main
     {
 
         MainFrame mainFrame = new MainFrame();
-        mainFrame.setSize(1800, 430);
+        mainFrame.setTitle("Taste-T Program");
+        mainFrame.setSize(1440, 430);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
